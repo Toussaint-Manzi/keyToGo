@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KeyTOGO Group Inc. — Company Website
 
-## Getting Started
+Next.js 16 marketing site with PostgreSQL, Prisma, admin dashboard (Ant Design), and Redux Toolkit for client state.
 
-First, run the development server:
+## Stack
+
+- **Next.js** (App Router, ISR caching for public content)
+- **PostgreSQL** + **Prisma**
+- **Tailwind CSS** (public site) + **Ant Design** (admin)
+- **Redux Toolkit** (quote form + content hydration)
+- **Zod** validation on API routes
+
+## Quick start
+
+### 1. PostgreSQL
+
+Create a database and copy the example env file:
+
+```bash
+cp .env.example .env
+```
+
+Set `DATABASE_URL` in `.env`, for example:
+
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/keytogo?schema=public"
+```
+
+### 2. Admin credentials
+
+Set in `.env` (never commit this file):
+
+```
+ADMIN_EMAIL="admin@keytogo.com"
+ADMIN_PASSWORD="your-password"
+AUTH_SECRET="your-long-random-string-at-least-32-characters"
+```
+
+Sign in at `/dashboard/login` with that email and password.
+
+### 3. Database schema + one-time seed
+
+The seed script loads all KeyTOGO content from the concept note (services, expertise, vision/mission, transport, staffing, etc.):
+
+```bash
+npm run db:setup
+```
+
+Or separately:
+
+```bash
+npm run db:push
+npm run db:seed
+```
+
+**Re-running the seed clears and replaces marketing content.** Quote requests are deleted on re-seed.
+
+### 4. Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Public site: [http://localhost:3000](http://localhost:3000)
+- Admin: [http://localhost:3000/dashboard/login](http://localhost:3000/dashboard/login)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Admin dashboard
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Designed for non-technical users:
 
-## Learn More
+- **Site settings** — hero text, intro, contact, SEO
+- **Statistics** — homepage numbers
+- **Services** — categories and service cards
+- **Expertise** — industry verticals
+- **Vision & Mission** — pillar statements
+- **Why choose us** — benefit cards
+- **Offices** — locations
+- **Quote requests** — contact form submissions
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run db:seed` | One-time / reset content seed |
+| `npm run db:setup` | Push schema + seed |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Public UI follows a clean teal/slate corporate style (inspired by modern IT agency layouts). Content is fully editable via the admin panel after the initial seed.

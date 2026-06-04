@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SiteSettings {
+  id                 String   @id @default("default")
+  companyName        String
+  legalName          String?
+  tagline            String?
+  heroTitle          String
+  heroSubtitle       String?
+  heroTypingPhrases  Json
+  introParagraphs    Json
+  contactEmail       String
+  contactPhone       String?
+  contactAddress     String?
+  countriesLine      String?
+  metaDescription    String?
+  footerText         String?
+  updatedAt          DateTime @updatedAt
+}
+
+model Stat {
+  id        String  @id @default(cuid())
+  label     String
+  value     String
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model ServiceCategory {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String    @db.Text
+  icon        String?
+  sortOrder   Int       @default(0)
+  published   Boolean   @default(true)
+  services    Service[]
+}
+
+model Service {
+  id            String          @id @default(cuid())
+  categoryId    String
+  category      ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  title         String
+  description   String          @db.Text
+  bulletPoints  Json?
+  icon          String?
+  sortOrder     Int             @default(0)
+  published     Boolean         @default(true)
+}
+
+model ExpertiseArea {
+  id          String  @id @default(cuid())
+  title       String
+  tagline     String?
+  description String  @db.Text
+  icon        String?
+  sortOrder   Int     @default(0)
+  published   Boolean @default(true)
+}
+
+model VisionMissionItem {
+  id        String  @id @default(cuid())
+  pillar    String
+  type      String
+  title     String
+  body      String  @db.Text
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model WhyChooseItem {
+  id          String  @id @default(cuid())
+  section     String
+  title       String
+  description String  @db.Text
+  icon        String?
+  sortOrder   Int     @default(0)
+  published   Boolean @default(true)
+}
+
+model StaffingSkill {
+  id        String  @id @default(cuid())
+  title     String
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model TransportOffering {
+  id          String  @id @default(cuid())
+  title       String
+  description String  @db.Text
+  sortOrder   Int     @default(0)
+  published   Boolean @default(true)
+}
+
+model Partner {
+  id        String  @id @default(cuid())
+  name      String
+  logoUrl   String?
+  role      String?
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model Testimonial {
+  id         String  @id @default(cuid())
+  authorName String
+  authorRole String?
+  company    String?
+  content    String  @db.Text
+  rating     Int?
+  sortOrder  Int     @default(0)
+  published  Boolean @default(true)
+}
+
+model Office {
+  id             String  @id @default(cuid())
+  country        String
+  city           String?
+  address        String?
+  phone          String?
+  email          String?
+  isHeadquarters Boolean @default(false)
+  sortOrder      Int     @default(0)
+  published      Boolean @default(true)
+}
+
+model Project {
+  id          String  @id @default(cuid())
+  title       String
+  client      String?
+  description String  @db.Text
+  category    String?
+  status      String?
+  highlights  Json?
+  imageUrl    String?
+  sortOrder   Int     @default(0)
+  published   Boolean @default(true)
+}
+
+model QuoteServiceOption {
+  id        String  @id @default(cuid())
+  label     String
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model QuoteRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  phone     String?
+  service   String
+  message   String   @db.Text
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+}
