@@ -17,6 +17,8 @@ async function fetchPublicContent() {
     quoteOptions,
     partners,
     testimonials,
+    resources,
+    leadership,
   ] = await Promise.all([
     prisma.siteSettings.findUnique({ where: { id: "default" } }),
     prisma.stat.findMany({
@@ -69,6 +71,14 @@ async function fetchPublicContent() {
       where: { published: true },
       orderBy: { sortOrder: "asc" },
     }),
+    prisma.resource.findMany({
+      where: { published: true },
+      orderBy: { sortOrder: "asc" },
+    }),
+    prisma.leadershipMember.findMany({
+      where: { published: true },
+      orderBy: { sortOrder: "asc" },
+    }),
   ]);
 
   return {
@@ -84,7 +94,15 @@ async function fetchPublicContent() {
     quoteOptions,
     partners,
     testimonials,
+    resources,
+    leadership,
   };
+}
+
+export async function getProductPage(slug: string) {
+  return prisma.productPage.findFirst({
+    where: { slug, published: true },
+  });
 }
 
 export const getPublicContent = unstable_cache(

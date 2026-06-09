@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const GOVCONNECT_VIDEO =
+  "https://drive.google.com/file/d/1i0AZ00CGJORfU5d2aepbzM_d6-9nbQDO/view?usp=sharing";
+
 async function main() {
   console.log("Seeding KeyTOGO Group Inc. content…");
 
@@ -10,7 +13,9 @@ async function main() {
   await prisma.partner.deleteMany();
   await prisma.quoteServiceOption.deleteMany();
   await prisma.project.deleteMany();
-  await prisma.partner.deleteMany();
+  await prisma.resource.deleteMany();
+  await prisma.leadershipMember.deleteMany();
+  await prisma.productPage.deleteMany();
   await prisma.office.deleteMany();
   await prisma.transportOffering.deleteMany();
   await prisma.staffingSkill.deleteMany();
@@ -28,36 +33,37 @@ async function main() {
       companyName: "KeyTOGO Group Inc.",
       legalName: "KeyTOGO Group Inc.",
       tagline:
-        "Solutions TI innovantes, transport fiable et placement de personnel — adaptés à votre réussite.",
-      heroTitle: "Propulser les entreprises partout au Canada",
+        "Innovative IT solutions, reliable transport, and exceptional staffing — tailored to your success.",
+      heroTitle:
+        "Driving Business Growth Through Technology, Mobility and Workforce Excellence",
       heroSubtitle:
-        "Innovation TI, transport fiable et experts en placement — un partenaire de confiance pour votre croissance.",
+        "IT innovation, reliable transport, and staffing experts — your trusted partner for growth across Canada.",
       heroTypingPhrases: [
-        "Solutions TI et automatisation",
-        "Infonuagique et cybersécurité",
-        "Services de transport",
-        "Placement et experts à la demande",
-        "Centre de contact et excellence CX",
+        "IT solutions & govCONNECT",
+        "Cloud & cybersecurity",
+        "Transport services",
+        "Staffing & experts on demand",
+        "Contact center excellence",
       ],
       introParagraphs: [
-        "Chez KeyTOGO Group Inc., nous envisageons un avenir où les entreprises et les communautés prospèrent grâce à nos solutions TI innovantes, nos services de transport fiables et nos solutions de placement de personnel. Notre équipe de développeurs, consultants TI/RH et chauffeurs offre des produits et services de qualité adaptés à vos besoins.",
-        "Nous visons à être le partenaire privilégié de nos clients, reconnus pour notre intégrité, notre excellence et notre engagement envers leur réussite. En combinant technologie, transport et placement, nous aidons les entreprises à atteindre leur plein potentiel.",
+        "At KeyTOGO Group Inc., we envision a future where businesses and communities thrive through innovative IT solutions, reliable transport services, and exceptional staffing. Our team of developers, IT/HR consultants, and transport professionals delivers quality products and services tailored to your needs.",
+        "We aim to be our clients' preferred partner — recognized for integrity, excellence, and commitment to their success. By combining technology, mobility, and workforce solutions, we help organizations reach their full potential across North America and Africa.",
       ],
       contactEmail: "contact@keytogo.com",
       contactPhone: "+1 (613) 000-0000",
-      contactAddress: "Région de la capitale nationale (Ottawa–Gatineau), Canada",
-      countriesLine: "Canada • Clients en Amérique du Nord et en Afrique",
+      contactAddress: "National Capital Region (Ottawa–Gatineau), Canada",
+      countriesLine: "Canada • Serving clients across North America & Africa",
       metaDescription:
-        "KeyTOGO Group Inc. — solutions TI, transport et placement au Canada. Automatisation, infonuagique, cybersécurité, transport médical et experts à la demande.",
-      footerText: "© 2026 KeyTOGO Group Inc. Tous droits réservés.",
+        "KeyTOGO Group Inc. — IT solutions, transport, and staffing in Canada. govCONNECT, cloud, cybersecurity, medical transport, and experts on demand.",
+      footerText: "© 2026 KeyTOGO Group Inc. All rights reserved.",
     },
   });
 
   const stats = [
-    { label: "Années d'expertise combinée", value: "15+", sortOrder: 0 },
-    { label: "Clients satisfaits", value: "200+", sortOrder: 1 },
-    { label: "Projets livrés", value: "500+", sortOrder: 2 },
-    { label: "Support disponible", value: "24/7", sortOrder: 3 },
+    { label: "Years of combined expertise", value: "15+", sortOrder: 0 },
+    { label: "Satisfied clients", value: "200+", sortOrder: 1 },
+    { label: "Projects delivered", value: "500+", sortOrder: 2 },
+    { label: "Support available", value: "24/7", sortOrder: 3 },
   ];
   for (const s of stats) {
     await prisma.stat.create({ data: { ...s, published: true } });
@@ -68,7 +74,7 @@ async function main() {
       slug: "it-solutions",
       name: "IT Solutions",
       description:
-        "Cutting-edge technology, automation, cloud, and cybersecurity to drive digital transformation and operational excellence.",
+        "Cutting-edge technology, digital government platforms, cloud, cybersecurity, and managed services for operational excellence.",
       icon: "Cpu",
       sortOrder: 0,
     },
@@ -79,7 +85,7 @@ async function main() {
       slug: "transport",
       name: "Transport Services",
       description:
-        "Safe, reliable, and transparent transport across the Capital Region — from VVIP rides to medical and school services.",
+        "Safe, reliable, and transparent transport — executive rides, medical transport, school services, and logistics.",
       icon: "Truck",
       sortOrder: 1,
     },
@@ -90,31 +96,36 @@ async function main() {
       slug: "staffing",
       name: "Staffing Services",
       description:
-        "Experts on demand — connect with top-tier talent for IT, contact centers, transport, healthcare, and more.",
+        "Experts on demand — IT, telecom, contact center, and healthcare talent matched to your needs.",
       icon: "Users",
       sortOrder: 2,
     },
   });
 
-  const itServices: Array<{
-    title: string;
-    description: string;
-    bulletPoints?: string[];
-    icon?: string;
-    sortOrder: number;
-  }> = [
-    {
-      title: "Automation",
+  const trainingCategory = await prisma.serviceCategory.create({
+    data: {
+      slug: "trainings",
+      name: "Professional Trainings",
       description:
-        "Accelerate toward an automated future with advanced technologies to reduce costs and scale operations.",
+        "Certifications and partnerships that upskill your teams and strengthen your technology workforce.",
+      icon: "GraduationCap",
+      sortOrder: 3,
+    },
+  });
+
+  const itServices = [
+    {
+      slug: "govconnect",
+      title: "govCONNECT",
+      description:
+        "Digital government and healthcare administration platforms — e-Gov and e-Health solutions for modern public-sector operations.",
       bulletPoints: [
-        "Unleash efficiency with end-to-end automation support",
-        "Automation Center of Excellence (CoE) for active investment management",
-        "Personalize customer interactions with AI-powered CX",
-        "Interactive and assistive automation for contact centers",
-        "Platform-agnostic contact center outsourcing on cloud infrastructure",
+        "e-Gov — GovConnect citizen services platform",
+        "e-Health Admin for healthcare providers",
       ],
-      icon: "Workflow",
+      icon: "Building2",
+      ctaLabel: "Explore more",
+      ctaHref: "/services/govconnect",
       sortOrder: 0,
     },
     {
@@ -122,10 +133,9 @@ async function main() {
       description:
         "React quickly to market changes, manage enterprise workloads, and achieve consistent ROI with the right cloud approach.",
       bulletPoints: [
-        "Public, private, or hybrid — SaaS, PaaS, IaaS, and CCaaS guidance",
+        "Public, private, or hybrid — SaaS, PaaS, IaaS, and CCaaS",
         "End-to-end cloud migration and optimization",
-        "Hybrid cloud clarity — plan, build, and optimize infrastructure",
-        "Digital transformation aligned with AI, mobility, big data, and IoT",
+        "Hybrid cloud planning, build, and optimization",
       ],
       icon: "Cloud",
       sortOrder: 1,
@@ -135,13 +145,48 @@ async function main() {
       description:
         "Strengthen your security posture with proactive defense, monitoring, and agile response strategies.",
       bulletPoints: [
-        "Protection for connected devices, AI, and open-source environments",
         "Cloud Security Operation Center services",
         "Compliance-aware strategies for evolving regulations",
         "Resilient infrastructure against evolving threats",
       ],
       icon: "Shield",
       sortOrder: 2,
+    },
+    {
+      title: "Contact Center Solutions",
+      description:
+        "Platform-agnostic contact center outsourcing and CX automation on modern cloud infrastructure.",
+      bulletPoints: [
+        "AI-powered customer experience",
+        "Interactive and assistive automation",
+        "Omnichannel support and analytics",
+      ],
+      icon: "Headphones",
+      sortOrder: 3,
+    },
+    {
+      title: "Network Infrastructure",
+      description:
+        "Design, deploy, and manage resilient network infrastructure for enterprises and public-sector organizations.",
+      bulletPoints: [
+        "LAN/WAN design and implementation",
+        "SD-WAN and hybrid connectivity",
+        "Monitoring, optimization, and support",
+      ],
+      icon: "Network",
+      sortOrder: 4,
+    },
+    {
+      title: "Managed Services",
+      description:
+        "Proactive IT management, monitoring, and support so your teams can focus on strategic priorities.",
+      bulletPoints: [
+        "24/7 infrastructure monitoring",
+        "Help desk and application support",
+        "Patch management and lifecycle services",
+      ],
+      icon: "Settings",
+      sortOrder: 5,
     },
   ];
 
@@ -153,45 +198,31 @@ async function main() {
 
   const transportServices = [
     {
-      title: "Pre/Post-paid Taxi Service",
+      title: "Executive Transportation",
       description:
-        "Flexible payment options for hassle-free rides across the Capital Region, including Ottawa and Gatineau.",
+        "Premium executive and VVIP transportation with professional drivers and modern, comfortable vehicles.",
       sortOrder: 0,
-      icon: "Car",
-    },
-    {
-      title: "VVIP On-Demand Rides",
-      description:
-        "Premium transportation without advance scheduling — request a ride for a seamless experience.",
-      sortOrder: 1,
       icon: "Star",
     },
     {
-      title: "Safe Night Out Transportation",
-      description:
-        "Enjoy your evening worry-free — we drive you and your vehicle home safely and respectfully.",
-      sortOrder: 2,
-      icon: "Moon",
-    },
-    {
-      title: "Medical & Adapted Transportation",
+      title: "Medical Transportation",
       description:
         "Comfortable, secure transport for medical visits, therapy, and healthcare appointments with equipped vehicles.",
-      sortOrder: 3,
+      sortOrder: 1,
       icon: "HeartPulse",
     },
     {
       title: "School Transportation",
       description:
         "Safe, reliable school runs with flexible scheduling, real-time notifications, and versatile options.",
-      sortOrder: 4,
+      sortOrder: 2,
       icon: "GraduationCap",
     },
     {
-      title: "Package Delivery — KEYTOGO Express",
+      title: "Logistics & Courier",
       description:
-        "Fast, dependable parcel delivery with dedicated vans across Ottawa, Gatineau, and the Capital Region.",
-      sortOrder: 5,
+        "Fast, dependable parcel and logistics delivery across Ottawa, Gatineau, and the Capital Region.",
+      sortOrder: 3,
       icon: "Package",
     },
   ];
@@ -204,31 +235,32 @@ async function main() {
 
   const staffingServices = [
     {
-      title: "Experts on Demand",
+      title: "IT Staffing",
       description:
-        "Flexible scaling with skilled professionals — faster delivery without the cost of a full in-house team.",
-      bulletPoints: [
-        "Application support & call center management",
-        "Cloud computing & contact center software",
-        "CRM, cybersecurity, and transport expertise",
-        "Content, SEO, social media, and data entry",
-      ],
+        "Skilled developers, architects, and IT professionals to scale your technology teams on demand.",
       sortOrder: 0,
-      icon: "UserCheck",
+      icon: "Cpu",
     },
     {
-      title: "Contact Center Outsourcing",
+      title: "Telecom Experts",
       description:
-        "Platform-agnostic advice for agility, efficiency, cost savings, scalability, and security on cloud foundations.",
+        "Network engineers, telecom specialists, and infrastructure experts for carriers and enterprises.",
       sortOrder: 1,
+      icon: "Radio",
+    },
+    {
+      title: "Contact Center Staffing",
+      description:
+        "Agents, supervisors, and CX specialists for outsourced and in-house contact center operations.",
+      sortOrder: 2,
       icon: "Headphones",
     },
     {
-      title: "Talent Matching & Development",
+      title: "Healthcare Staffing",
       description:
-        "Connect businesses with top-tier talent and support continuous professional growth.",
-      sortOrder: 2,
-      icon: "TrendingUp",
+        "Clinical and administrative healthcare professionals for providers, labs, and regional networks.",
+      sortOrder: 3,
+      icon: "Stethoscope",
     },
   ];
 
@@ -238,74 +270,111 @@ async function main() {
     });
   }
 
-  const expertiseAreas = [
+  const trainingServices = [
     {
-      title: "Manufacturing",
-      tagline: "We keep businesses moving forward",
+      title: "Certifications & Partnerships",
       description:
-        "Gig economy, supply chain, and brand loyalty challenges meet cloud solutions that bring teams together, reduce costs, and enhance customer service and operational efficiency.",
-      icon: "Factory",
+        "Industry-recognized certifications and training partnerships to develop your workforce capabilities.",
+      bulletPoints: [
+        "Cloud and cybersecurity certifications",
+        "Contact center and CX training",
+        "Custom corporate learning programs",
+      ],
       sortOrder: 0,
-    },
-    {
-      title: "Banking, Financial & Insurance",
-      tagline: "We build trust and increase resilience",
-      description:
-        "We work with payment startups and banks to increase resilience, speed to market, and secure customer data with Cloud Security Operation Center services.",
-      icon: "Landmark",
-      sortOrder: 1,
-    },
-    {
-      title: "Electronics & Telecom",
-      tagline: "We deliver next-gen customer experiences",
-      description:
-        "Cloud computing helps introduce new services, reduce costs, attract subscribers, and respond to market demands — serving providers in Africa and Canada.",
-      icon: "Radio",
-      sortOrder: 2,
-    },
-    {
-      title: "Consumer Packaged Goods",
-      tagline: "Balance retail and wholesale channels",
-      description:
-        "End-to-end, cloud-based, lead-generating contact center solutions to help you move forward with confidence amid regulatory and innovation pressures.",
-      icon: "ShoppingBag",
-      sortOrder: 3,
-    },
-    {
-      title: "Healthcare",
-      tagline: "Holistic solutions for better outcomes",
-      description:
-        "Contact center and cloud solutions for payers, providers, pharma, and labs — reducing costs and supporting multi-site infrastructure seamlessly.",
-      icon: "Stethoscope",
-      sortOrder: 4,
-    },
-    {
-      title: "Public Sector",
-      tagline: "Cost-effective digital services",
-      description:
-        "Cloud maximizes ROI and helps teams deliver on promises — serving students, subscribers, homeowners, and travelers with positive departmental change.",
-      icon: "Building2",
-      sortOrder: 5,
-    },
-    {
-      title: "Retail",
-      tagline: "Optimize CX for mobile consumers",
-      description:
-        "Leverage DevOps and the cloud to accelerate innovation and provide burst capacity for seasonal spikes while improving customer experience.",
-      icon: "Store",
-      sortOrder: 6,
-    },
-    {
-      title: "Travel & Hospitality",
-      tagline: "Support the journey digitally and literally",
-      description:
-        "Cloud and Contact Center as a Service increase access, speed to response, and ensure you always hear the voice of the customer.",
-      icon: "Plane",
-      sortOrder: 7,
+      icon: "Award",
     },
   ];
 
-  for (const area of expertiseAreas) {
+  for (const s of trainingServices) {
+    await prisma.service.create({
+      data: { categoryId: trainingCategory.id, ...s, published: true },
+    });
+  }
+
+  await prisma.productPage.create({
+    data: {
+      slug: "govconnect",
+      title: "govCONNECT",
+      subtitle: "Digital government & healthcare administration platforms",
+      description:
+        "govCONNECT brings together e-Gov and e-Health solutions designed for modern public-sector and healthcare operations. Explore each platform below — external links open in a new tab, and a live e-Health demo is available on this page.",
+      videoUrl: GOVCONNECT_VIDEO,
+      products: [
+        {
+          key: "egov",
+          title: "e-Gov — GovConnect",
+          description:
+            "Digital government platform for streamlined citizen services, case management, and administrative workflows.",
+          href: "https://egov-admin.keytogogroup.ca/",
+          hasDemo: false,
+          external: true,
+        },
+        {
+          key: "ehealth",
+          title: "e-Health Admin",
+          description:
+            "Healthcare administration platform for clinics, providers, and regional health networks.",
+          href: "https://ehealth-admin.keytogogroup.ca/",
+          hasDemo: true,
+          external: true,
+        },
+      ],
+      published: true,
+    },
+  });
+
+  const industries = [
+    {
+      title: "IT",
+      tagline: "Technology-driven transformation",
+      description:
+        "Cloud, automation, cybersecurity, and managed services for enterprises modernizing their technology footprint.",
+      icon: "Cpu",
+      sortOrder: 0,
+    },
+    {
+      title: "Telecom",
+      tagline: "Next-gen connectivity",
+      description:
+        "Network infrastructure, contact center, and telecom expertise for carriers and service providers in Canada and Africa.",
+      icon: "Radio",
+      sortOrder: 1,
+    },
+    {
+      title: "Healthcare",
+      tagline: "Better outcomes through technology",
+      description:
+        "e-Health platforms, medical transport, and healthcare staffing for payers, providers, and regional networks.",
+      icon: "Stethoscope",
+      sortOrder: 2,
+    },
+    {
+      title: "Government",
+      tagline: "Digital public services",
+      description:
+        "govCONNECT and cloud solutions helping government agencies deliver cost-effective, citizen-centric digital services.",
+      icon: "Building2",
+      sortOrder: 3,
+    },
+    {
+      title: "Banking & Insurance",
+      tagline: "Trust and resilience",
+      description:
+        "Secure cloud, contact center, and cybersecurity solutions for financial institutions and insurers.",
+      icon: "Landmark",
+      sortOrder: 4,
+    },
+    {
+      title: "Manufacturing",
+      tagline: "Operational efficiency",
+      description:
+        "Automation, supply chain technology, and staffing solutions that keep manufacturing operations moving forward.",
+      icon: "Factory",
+      sortOrder: 5,
+    },
+  ];
+
+  for (const area of industries) {
     await prisma.expertiseArea.create({ data: { ...area, published: true } });
   }
 
@@ -318,60 +387,18 @@ async function main() {
       sortOrder: 0,
     },
     {
-      pillar: "IT Solutions",
-      type: "vision",
-      title: "Unparalleled security",
-      body: "Setting the standard for cybersecurity — protected data and resilient infrastructure against evolving threats.",
-      sortOrder: 1,
-    },
-    {
-      pillar: "IT Solutions",
-      type: "vision",
-      title: "Client empowerment",
-      body: "Providing tools and expertise to harness technology for competitive advantage and operational excellence.",
-      sortOrder: 2,
-    },
-    {
       pillar: "Transport Services",
       type: "vision",
       title: "Reliability and efficiency",
       body: "The most trusted name in transport — timely deliveries, safe transport, and operational excellence.",
-      sortOrder: 3,
-    },
-    {
-      pillar: "Transport Services",
-      type: "vision",
-      title: "Sustainable mobility",
-      body: "Leading sustainable transport practices, reducing carbon footprint and promoting eco-friendly logistics.",
-      sortOrder: 4,
-    },
-    {
-      pillar: "Transport Services",
-      type: "vision",
-      title: "Customer-centric service",
-      body: "Exceeding expectations through transparent, responsive, and personalized transport services.",
-      sortOrder: 5,
+      sortOrder: 1,
     },
     {
       pillar: "Staffing Services",
       type: "vision",
       title: "Top talent connector",
       body: "The go-to staffing partner for top-tier talent — matching the right candidates with the right opportunities.",
-      sortOrder: 6,
-    },
-    {
-      pillar: "Staffing Services",
-      type: "vision",
-      title: "Employee development",
-      body: "A nurturing environment for professional growth where candidates reach their highest potential.",
-      sortOrder: 7,
-    },
-    {
-      pillar: "Staffing Services",
-      type: "vision",
-      title: "Trust and integrity",
-      body: "Transparent, ethical staffing practices focused on mutual success.",
-      sortOrder: 8,
+      sortOrder: 2,
     },
   ];
 
@@ -384,60 +411,18 @@ async function main() {
       sortOrder: 0,
     },
     {
-      pillar: "IT Solutions",
-      type: "mission",
-      title: "Secure and reliable",
-      body: "Robust cybersecurity and reliable IT infrastructure that protect data and support digital transformation.",
-      sortOrder: 1,
-    },
-    {
-      pillar: "IT Solutions",
-      type: "mission",
-      title: "Client-centric approach",
-      body: "Personalized IT services tailored to each client, fostering long-term partnerships and satisfaction.",
-      sortOrder: 2,
-    },
-    {
       pillar: "Transport Services",
       type: "mission",
       title: "Efficient and timely",
       body: "Safe, reliable, and timely transport with optimized routes and advanced technology.",
-      sortOrder: 3,
-    },
-    {
-      pillar: "Transport Services",
-      type: "mission",
-      title: "Sustainable practices",
-      body: "Eco-friendly practices and technologies that minimize environmental impact.",
-      sortOrder: 4,
-    },
-    {
-      pillar: "Transport Services",
-      type: "mission",
-      title: "Customer focus",
-      body: "Responsive, transparent, and professional transport services that exceed expectations.",
-      sortOrder: 5,
+      sortOrder: 1,
     },
     {
       pillar: "Staffing Services",
       type: "mission",
       title: "Quality and excellence",
       body: "Comprehensive staffing solutions ensuring the right fit for every role and culture.",
-      sortOrder: 6,
-    },
-    {
-      pillar: "Staffing Services",
-      type: "mission",
-      title: "Development and support",
-      body: "Continuous development so candidates and employees excel with the skills they need.",
-      sortOrder: 7,
-    },
-    {
-      pillar: "Staffing Services",
-      type: "mission",
-      title: "Integrity and trust",
-      body: "Transparent, ethical, and reliable staffing practices that prioritize mutual growth.",
-      sortOrder: 8,
+      sortOrder: 2,
     },
   ];
 
@@ -445,43 +430,23 @@ async function main() {
     await prisma.visionMissionItem.create({ data: { ...item, published: true } });
   }
 
+  const leadership = [
+    { role: "CEO", title: "Chief Executive Officer", sortOrder: 0 },
+    { role: "COO", title: "Chief Operation Officer", sortOrder: 1 },
+    { role: "CFO", title: "Chief Finance Officer", sortOrder: 2 },
+    { role: "CAO", title: "Chief Admin Officer", sortOrder: 3 },
+  ];
+
+  for (const member of leadership) {
+    await prisma.leadershipMember.create({ data: { ...member, published: true } });
+  }
+
   const whyChoose = [
     {
-      section: "transport",
-      title: "Well-trained and vetted drivers",
-      description:
-        "Carefully selected, thoroughly trained drivers — professional, licensed, and committed to your safety and privacy.",
-      icon: "UserCheck",
-      sortOrder: 0,
-    },
-    {
-      section: "transport",
-      title: "Clean and modern vehicles",
-      description:
-        "Regularly maintained fleet with features for a comfortable, customized journey from pickup to destination.",
-      icon: "Car",
-      sortOrder: 1,
-    },
-    {
-      section: "transport",
-      title: "Fair and transparent pricing",
-      description: "Clear, honest pricing with no hidden fees — fair rates for quality service.",
-      icon: "BadgeDollarSign",
-      sortOrder: 2,
-    },
-    {
-      section: "transport",
-      title: "24/7 availability",
-      description:
-        "Dedicated team available around the clock — drivers, receptionists, and admin staff ready when you need us.",
-      icon: "Clock",
-      sortOrder: 3,
-    },
-    {
       section: "general",
-      title: "Integrity & excellence",
+      title: "15+ years experience",
       description:
-        "Your preferred partner known for integrity, excellence, and commitment to your success and growth.",
+        "Over fifteen years of combined expertise across IT, transport, and staffing for Canadian and international clients.",
       icon: "Award",
       sortOrder: 0,
     },
@@ -495,11 +460,27 @@ async function main() {
     },
     {
       section: "general",
-      title: "Canada-based, globally minded",
+      title: "24/7 support",
       description:
-        "Headquartered in Canada with experience serving clients across North America and Africa.",
-      icon: "Globe",
+        "Dedicated teams available around the clock — ready when you need us for critical operations.",
+      icon: "Clock",
       sortOrder: 2,
+    },
+    {
+      section: "general",
+      title: "Canada-based",
+      description:
+        "Headquartered in Canada with deep understanding of local business and regulatory requirements.",
+      icon: "MapPin",
+      sortOrder: 3,
+    },
+    {
+      section: "general",
+      title: "North America & Africa coverage",
+      description:
+        "Serving clients across North America and Africa with proven delivery in diverse markets.",
+      icon: "Globe",
+      sortOrder: 4,
     },
   ];
 
@@ -507,57 +488,121 @@ async function main() {
     await prisma.whyChooseItem.create({ data: { ...item, published: true } });
   }
 
-  const transportOfferings = [
+  const resources = [
+    // Blog
     {
-      title: "Tailored transport for individuals with disabilities",
-      description:
-        "Reliable, comfortable transportation for ongoing limitations that significantly impact daily life.",
+      title: "Staff Augmentation vs Full-Time Hiring",
+      category: "Blog",
+      excerpt: "When to scale with on-demand experts versus building permanent in-house teams.",
+      href: "https://dev.to/t/staffing",
       sortOrder: 0,
     },
     {
-      title: "Daily and weekly transport for adults and students",
-      description:
-        "Safe transport from home to school or other destinations for adults and students with mild disabilities.",
+      title: "Building High-Performance Remote Teams",
+      category: "Blog",
+      excerpt: "Practices for distributed collaboration, accountability, and delivery velocity.",
+      href: "https://medium.com/tag/remote-work",
       sortOrder: 1,
     },
     {
-      title: "Specialized transport for severe disabilities",
-      description:
-        "Regular transport from home to specialized establishments for schooling and personalized support.",
+      title: "Modern IT Staffing Strategies for Growing Companies",
+      category: "Blog",
+      excerpt: "How mid-market firms balance contractors, partners, and core hires.",
+      href: "https://hackernoon.com/c/technology",
       sortOrder: 2,
     },
+    // Whitepapers
     {
-      title: "On-demand collective transport",
-      description:
-        "Classic or PRM-adapted on-demand service with collective and tailor-made options for specific needs.",
+      title: "Cloud Migration Best Practices",
+      category: "Whitepapers",
+      excerpt: "A structured approach to planning, migrating, and optimizing cloud workloads.",
+      href: "https://medium.com/tag/cloud-computing",
       sortOrder: 3,
+    },
+    {
+      title: "Hybrid Cloud Architecture Patterns",
+      category: "Whitepapers",
+      excerpt: "Design patterns for secure, scalable hybrid and multi-cloud deployments.",
+      href: "https://dev.to/t/cloud",
+      sortOrder: 4,
+    },
+    {
+      title: "Cybersecurity Framework for Cloud-Native Organizations",
+      category: "Whitepapers",
+      excerpt: "Layered security controls for modern cloud and SaaS environments.",
+      href: "https://dev.to/t/security",
+      sortOrder: 5,
+    },
+    // Industry Reports
+    {
+      title: "Medical Transportation Compliance in Canada",
+      category: "Industry Reports",
+      excerpt: "Key regulatory and operational considerations for healthcare transport providers.",
+      href: "https://medium.com/tag/healthcare",
+      sortOrder: 6,
+    },
+    {
+      title: "Digital Transformation in Healthcare",
+      category: "Industry Reports",
+      excerpt: "How providers are modernizing operations, data, and patient experience.",
+      href: "https://dev.to/t/healthcare",
+      sortOrder: 7,
+    },
+    {
+      title: "Public Sector Digital Services Outlook",
+      category: "Industry Reports",
+      excerpt: "Trends in e-government platforms, citizen services, and operational efficiency.",
+      href: "https://medium.com/tag/government",
+      sortOrder: 8,
+    },
+    // Technology Trends
+    {
+      title: "How AI is Transforming Contact Centers",
+      category: "Technology Trends",
+      excerpt: "Practical ways AI is reshaping customer experience and agent productivity.",
+      href: "https://dev.to/t/ai",
+      sortOrder: 9,
+    },
+    {
+      title: "10 Cloud Computing Trends to Watch",
+      category: "Technology Trends",
+      excerpt: "Emerging patterns in infrastructure, automation, and platform engineering.",
+      href: "https://medium.com/tag/artificial-intelligence",
+      sortOrder: 10,
+    },
+    {
+      title: "The Future of Customer Experience Automation",
+      category: "Technology Trends",
+      excerpt: "CX automation, conversational AI, and omnichannel orchestration.",
+      href: "https://dev.to/t/automation",
+      sortOrder: 11,
+    },
+    // Telecom Insights
+    {
+      title: "5G Rollout Strategies for Telecom Providers",
+      category: "Telecom Insights",
+      excerpt: "Infrastructure, staffing, and CX considerations for next-generation networks.",
+      href: "https://dev.to/t/5g",
+      sortOrder: 12,
+    },
+    {
+      title: "Modernizing Telecom Infrastructure",
+      category: "Telecom Insights",
+      excerpt: "Network virtualization, edge computing, and operational resilience.",
+      href: "https://medium.com/tag/telecommunications",
+      sortOrder: 13,
+    },
+    {
+      title: "Contact Center Evolution in Telecom",
+      category: "Telecom Insights",
+      excerpt: "How carriers are upgrading support operations for digital-first subscribers.",
+      href: "https://dev.to/t/telecommunications",
+      sortOrder: 14,
     },
   ];
 
-  for (const o of transportOfferings) {
-    await prisma.transportOffering.create({ data: { ...o, published: true } });
-  }
-
-  const staffingSkills = [
-    "Application support",
-    "Call center management",
-    "Cloud computing",
-    "Contact center software expert",
-    "CRM tool expert",
-    "Copywriting and content writing",
-    "Editing and proofreading",
-    "Search Engine Optimization",
-    "Social media support and promotion",
-    "Data entry",
-    "Cyber security",
-    "Transport expert",
-    "Healthcare expert",
-  ];
-
-  for (const [sortOrder, title] of staffingSkills.entries()) {
-    await prisma.staffingSkill.create({
-      data: { title, sortOrder, published: true },
-    });
+  for (const r of resources) {
+    await prisma.resource.create({ data: { ...r, published: true } });
   }
 
   await prisma.office.create({
@@ -574,15 +619,17 @@ async function main() {
   });
 
   const quoteOptions = [
-    "IT Solutions — Automation",
+    "IT Solutions — govCONNECT",
     "IT Solutions — Cloud",
     "IT Solutions — Cybersecurity",
-    "Transport — Taxi / VVIP",
-    "Transport — Medical / Adapted",
+    "IT Solutions — Contact Center",
+    "Transport — Executive",
+    "Transport — Medical",
     "Transport — School",
-    "Transport — Package delivery",
-    "Staffing — Experts on demand",
-    "Staffing — Contact center",
+    "Transport — Logistics & Courier",
+    "Staffing — IT",
+    "Staffing — Healthcare",
+    "Professional Trainings",
     "Other",
   ];
 
@@ -629,7 +676,7 @@ async function main() {
       authorRole: "CTO",
       company: "FinTech Startup, Ottawa",
       content:
-        "From automation to cybersecurity, KeyTOGO helped us scale without hiring a full in-house team. Experts on demand was exactly what we needed.",
+        "From govCONNECT to cybersecurity, KeyTOGO helped us scale without hiring a full in-house team. Experts on demand was exactly what we needed.",
       rating: 5,
       sortOrder: 2,
     },

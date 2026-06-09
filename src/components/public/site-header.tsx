@@ -1,18 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { fr, type NavSectionId } from "@/lib/public-i18n";
+import { en, type NavSectionId } from "@/lib/public-i18n";
 
 const nav: { id: NavSectionId; label: string }[] = [
-  { id: "services", label: fr.nav.services },
-  { id: "expertise", label: fr.nav.expertise },
-  { id: "partners", label: fr.nav.partners },
-  { id: "testimonials", label: fr.nav.testimonials },
-  { id: "about", label: fr.nav.vision },
-  { id: "contact", label: fr.nav.contact },
+  { id: "home", label: en.nav.home },
+  { id: "about", label: en.nav.aboutUs },
+  { id: "services", label: en.nav.services },
+  { id: "industries", label: en.nav.industries },
+  { id: "partners", label: en.nav.partners },
+  { id: "resources", label: en.nav.resources },
+  { id: "contact", label: en.nav.contact },
 ];
 
 export function SiteHeader({
@@ -40,7 +40,7 @@ export function SiteHeader({
     const underline = onHero ? "after:bg-white" : "after:bg-teal-600";
 
     return [
-      "relative px-1 py-2 text-sm font-medium transition-colors",
+      "relative whitespace-nowrap px-1 py-2 text-sm font-medium transition-colors",
       text,
       "after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:rounded-full after:transition-transform after:duration-300 after:ease-out after:content-['']",
       underline,
@@ -53,20 +53,20 @@ export function SiteHeader({
       className={`fixed top-0 right-0 left-0 z-50 border-b ${surfaceClass}`}
       style={{ height: 80 }}
     >
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <BrandLogo
-          href="#home"
+          href="/#home"
           variant={onHero ? "inverted" : "default"}
           priority
         />
 
-        <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
+        <nav className="hidden items-center gap-4 xl:flex 2xl:gap-6">
           {nav.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={`/#${item.id}`}
                 className={navLinkClass(isActive)}
               >
                 {item.label}
@@ -74,18 +74,18 @@ export function SiteHeader({
             );
           })}
           <a
-            href="#contact"
-            className="ml-1 rounded-lg bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-400"
+            href="/#contact"
+            className="ml-1 shrink-0 rounded-lg bg-teal-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-teal-400 2xl:px-4 2xl:py-2.5"
           >
-            {fr.nav.cta}
+            {en.nav.requestQuote}
           </a>
         </nav>
 
         <button
           type="button"
-          className={`rounded-lg p-2 lg:hidden ${onHero ? "text-white" : "text-slate-700"}`}
+          className={`rounded-lg p-2 xl:hidden ${onHero ? "text-white" : "text-slate-700"}`}
           onClick={() => setOpen(!open)}
-          aria-label={fr.nav.menuOpen}
+          aria-label={en.nav.menuOpen}
         >
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -93,7 +93,7 @@ export function SiteHeader({
 
       {open && (
         <nav
-          className={`absolute top-full right-0 left-0 border-t px-4 py-4 lg:hidden ${
+          className={`absolute top-full right-0 left-0 border-t px-4 py-4 xl:hidden ${
             onHero ? "border-white/20 bg-slate-900/95" : "border-slate-100 bg-white"
           }`}
         >
@@ -103,7 +103,7 @@ export function SiteHeader({
               return (
                 <a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={`/#${item.id}`}
                   className={`${navLinkClass(isActive)} px-3`}
                   onClick={() => setOpen(false)}
                 >
@@ -112,11 +112,11 @@ export function SiteHeader({
               );
             })}
             <a
-              href="#contact"
+              href="/#contact"
               className="mt-2 rounded-lg bg-teal-500 px-4 py-2.5 text-center text-sm font-semibold text-white"
               onClick={() => setOpen(false)}
             >
-              {fr.nav.cta}
+              {en.nav.requestQuote}
             </a>
           </div>
         </nav>

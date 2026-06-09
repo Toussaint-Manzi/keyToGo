@@ -9,7 +9,7 @@ import {
   setSubmitting,
   setSuccess,
 } from "@/store/slices/quote-form-slice";
-import { fr } from "@/lib/public-i18n";
+import { en } from "@/lib/public-i18n";
 
 type Option = { id: string; label: string };
 
@@ -45,7 +45,7 @@ export function QuoteForm({ options }: { options: Option[] }) {
     if (!json.ok) {
       dispatch(
         setFormError({
-          message: json.message ?? fr.quote.error,
+          message: json.message ?? en.quote.error,
           fieldErrors: json.errors,
         }),
       );
@@ -61,14 +61,14 @@ export function QuoteForm({ options }: { options: Option[] }) {
       <div className="rounded-2xl border border-teal-200 bg-teal-50 p-8 text-center">
         <CheckCircle className="mx-auto text-teal-600" size={48} />
         <p className="mt-4 text-lg font-medium text-slate-800">
-          {fr.quote.success}
+          {en.quote.success}
         </p>
         <button
           type="button"
           className="mt-6 text-teal-700 underline"
           onClick={() => dispatch(resetQuoteForm())}
         >
-          {fr.quote.sendAnother}
+          {en.quote.sendAnother}
         </button>
       </div>
     );
@@ -84,15 +84,15 @@ export function QuoteForm({ options }: { options: Option[] }) {
       )}
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label={fr.quote.fullName} name="name" error={fieldErrors.name} />
-        <Field label={fr.quote.email} name="email" type="email" error={fieldErrors.email} />
-        <Field label={fr.quote.company} name="company" error={fieldErrors.company} />
-        <Field label={fr.quote.phone} name="phone" error={fieldErrors.phone} />
+        <Field label={en.quote.fullName} name="name" error={fieldErrors.name} />
+        <Field label={en.quote.email} name="email" type="email" error={fieldErrors.email} />
+        <Field label={en.quote.company} name="company" error={fieldErrors.company} />
+        <Field label={en.quote.phone} name="phone" error={fieldErrors.phone} />
       </div>
 
       <div>
         <label htmlFor="service" className="mb-1 block text-sm font-medium text-slate-700">
-          {fr.quote.service}
+          {en.quote.service}
         </label>
         <select
           id="service"
@@ -102,7 +102,7 @@ export function QuoteForm({ options }: { options: Option[] }) {
           defaultValue=""
         >
           <option value="" disabled>
-            {fr.quote.selectService}
+            {en.quote.selectService}
           </option>
           {options.map((o) => (
             <option key={o.id} value={o.label}>
@@ -115,14 +115,14 @@ export function QuoteForm({ options }: { options: Option[] }) {
 
       <div>
         <label htmlFor="message" className="mb-1 block text-sm font-medium text-slate-700">
-          {fr.quote.details}
+          {en.quote.details}
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
           required
-          placeholder={fr.quote.detailsPlaceholder}
+          placeholder={en.quote.detailsPlaceholder}
           className="w-full resize-none rounded-lg border border-slate-300 px-4 py-3 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/30 focus:outline-none"
         />
         {fieldErrors.message && (
@@ -136,7 +136,7 @@ export function QuoteForm({ options }: { options: Option[] }) {
         className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-teal-500 to-slate-600 px-6 py-3 font-semibold text-white transition hover:from-teal-600 hover:to-slate-700 disabled:opacity-60 sm:w-auto"
       >
         {submitting && <Loader2 className="animate-spin" size={20} />}
-        {fr.quote.submit}
+        {en.quote.submit}
       </button>
     </form>
   );

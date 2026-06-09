@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { fr } from "@/lib/public-i18n";
+import { en } from "@/lib/public-i18n";
 import { Handshake } from "lucide-react";
 
 type Partner = {
@@ -16,11 +16,11 @@ export function PartnersSection({ partners }: { partners: Partner[] }) {
     <section id="partners" className="scroll-mt-24 bg-slate-50/80 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <h2 className="text-center text-2xl font-bold sm:text-3xl md:text-4xl">
-          {fr.sections.partnersTitle}{" "}
-          <span className="gradient-text">{fr.sections.partnersHighlight}</span>
+          {en.sections.partnersTitle}{" "}
+          <span className="gradient-text">{en.sections.partnersHighlight}</span>
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-600 sm:mt-4 sm:text-base">
-          {fr.sections.partnersSubtitle}
+          {en.sections.partnersSubtitle}
         </p>
         <div className="mt-10 grid grid-cols-2 gap-4 sm:mt-12 sm:grid-cols-3 sm:gap-5 lg:grid-cols-3">
           {partners.map((p) => (

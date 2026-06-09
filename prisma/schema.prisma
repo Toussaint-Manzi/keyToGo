@@ -48,12 +48,46 @@ model Service {
   id            String          @id @default(cuid())
   categoryId    String
   category      ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  slug          String?         @unique
   title         String
   description   String          @db.Text
   bulletPoints  Json?
   icon          String?
+  ctaLabel      String?
+  ctaHref       String?
   sortOrder     Int             @default(0)
   published     Boolean         @default(true)
+}
+
+model ProductPage {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  title       String
+  subtitle    String? @db.Text
+  description String  @db.Text
+  videoUrl    String?
+  products    Json
+  published   Boolean @default(true)
+}
+
+model Resource {
+  id        String  @id @default(cuid())
+  title     String
+  category  String
+  excerpt   String? @db.Text
+  href      String
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
+}
+
+model LeadershipMember {
+  id        String  @id @default(cuid())
+  role      String
+  title     String
+  name      String?
+  bio       String? @db.Text
+  sortOrder Int     @default(0)
+  published Boolean @default(true)
 }
 
 model ExpertiseArea {

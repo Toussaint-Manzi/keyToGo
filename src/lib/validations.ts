@@ -55,10 +55,18 @@ export const serviceCategorySchema = z.object({
 
 export const serviceSchema = z.object({
   categoryId: z.string().min(1),
+  slug: z
+    .string()
+    .max(80)
+    .regex(/^[a-z0-9-]*$/, "Slug must be lowercase letters, numbers, and hyphens")
+    .optional()
+    .nullable(),
   title: z.string().min(1).max(200),
   description: z.string().min(1).max(10000),
   bulletPoints: z.array(z.string()).optional().nullable(),
   icon: z.string().max(80).optional().nullable(),
+  ctaLabel: z.string().max(80).optional().nullable(),
+  ctaHref: z.string().max(300).optional().nullable(),
   sortOrder: z.number().int().min(0),
   published: z.boolean(),
 });

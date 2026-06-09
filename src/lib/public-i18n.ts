@@ -1,84 +1,116 @@
-/** French copy for the public website (dashboard stays in English). */
-export const fr = {
+/** English copy for the public website (dashboard stays in English). */
+export const en = {
   nav: {
-    home: "Accueil",
+    home: "Home",
+    aboutUs: "About Us",
     services: "Services",
-    expertise: "Expertise",
-    partners: "Partenaires",
-    testimonials: "Témoignages",
-    vision: "Vision",
+    industries: "Industries",
+    partners: "Partners",
     contact: "Contact",
-    cta: "Demander un devis",
-    menuOpen: "Ouvrir le menu",
+    requestQuote: "Request a Quote",
+    resources: "Resources",
+    menuOpen: "Open menu",
   },
   hero: {
-    explore: "Découvrir nos services",
-    quote: "Demander un devis",
-    scroll: "Défiler vers le bas",
+    explore: "Explore our services",
+    quote: "Request a quote",
+    scroll: "Scroll down",
   },
   sections: {
-    servicesTitle: "Nos",
+    servicesTitle: "Our",
     servicesHighlight: "Services",
     servicesSubtitle:
-      "Solutions intégrées en TI, transport et placement de personnel pour les entreprises canadiennes.",
-    expertiseTitle: "Domaines d'",
-    expertiseHighlight: "expertise",
-    partnersTitle: "Nos",
-    partnersHighlight: "Partenaires",
+      "Integrated IT, transport, staffing, and professional training solutions for businesses across Canada.",
+    industriesTitle: "Industries we",
+    industriesHighlight: "serve",
+    industriesSubtitle:
+      "Deep domain expertise across technology, telecom, healthcare, government, and more.",
+    partnersTitle: "Our",
+    partnersHighlight: "Partners",
     partnersSubtitle:
-      "Partenaires technologiques et de services de confiance pour une excellence durable.",
-    testimonialsTitle: "Témoignages",
-    testimonialsHighlight: "clients",
-    testimonialsSubtitle:
-      "Ce que nos clients disent de leur collaboration avec KeyTOGO Group.",
-    visionTitle: "Vision &",
-    visionHighlight: "Mission",
-    vision: "Notre vision",
-    mission: "Notre mission",
-    whyTitle: "Pourquoi choisir",
+      "Trusted technology and service partners for sustainable excellence.",
+    aboutTitle: "About",
+    aboutHighlight: "Us",
+    aboutSubtitle:
+      "Vision, mission, leadership, and the values that drive KeyTOGO Group.",
+    vision: "Our vision",
+    mission: "Our mission",
+    leadership: "Leadership team",
+    whyTitle: "Why",
     whyHighlight: "KeyTOGO",
-    staffingTitle: "Compétences en placement de personnel",
-    contactTitle: "Nous",
-    contactHighlight: "contacter",
+    testimonialsTitle: "Testimonials &",
+    testimonialsHighlight: "major projects",
+    testimonialsSubtitle:
+      "What our clients say about working with KeyTOGO Group.",
+    resourcesTitle: "Resources &",
+    resourcesHighlight: "insights",
+    resourcesSubtitle:
+      "Articles, whitepapers, and industry reports to help you stay ahead.",
+    contactTitle: "Get in",
+    contactHighlight: "touch",
     contactSubtitle:
-      "Demandez un devis gratuit. Notre équipe vous répondra rapidement.",
-    offices: "Nos bureaux",
-    hq: "(Siège)",
-    quickLinks: "Liens rapides",
-    contactFooter: "Coordonnées",
+      "Request a free quote. Our team will respond promptly.",
+    offices: "Our offices",
+    hq: "(HQ)",
+    quickLinks: "Quick links",
+    servicesLinks: "Services",
+    socialMedia: "Social media",
+    certifications: "Certifications",
+    legal: "Legal",
+    contactFooter: "Contact",
+    privacyPolicy: "Privacy Policy",
+    termsConditions: "Terms & Conditions",
+    exploreMore: "Explore more",
+    watchDemo: "Watch demo",
+    visitPlatform: "Visit platform",
+  },
+  govconnect: {
+    productsTitle: "Our platforms",
+    productsSubtitle:
+      "Two integrated digital government solutions built for modern public-sector operations.",
+    eGovTitle: "e-Gov — GovConnect",
+    eGovDescription:
+      "Digital government platform for streamlined citizen services, case management, and administrative workflows.",
+    eHealthTitle: "e-Health Admin",
+    eHealthDescription:
+      "Healthcare administration platform for clinics, providers, and regional health networks.",
+    demoTitle: "e-Health practicum demo",
   },
   quote: {
     success:
-      "Merci ! Votre demande a été envoyée avec succès. Nous vous contacterons bientôt.",
-    sendAnother: "Envoyer une autre demande",
-    fullName: "Nom complet *",
-    email: "Courriel *",
-    company: "Entreprise",
-    phone: "Téléphone",
-    service: "Service souhaité *",
-    selectService: "Sélectionnez un service",
-    details: "Détails du projet *",
+      "Thank you! Your request was sent successfully. We will contact you soon.",
+    sendAnother: "Send another request",
+    fullName: "Full name *",
+    email: "Email *",
+    company: "Company",
+    phone: "Phone",
+    service: "Service needed *",
+    selectService: "Select a service",
+    details: "Project details *",
     detailsPlaceholder:
-      "Décrivez vos besoins : équipements, logiciels, transport, placement, délais...",
-    submit: "Envoyer ma demande",
-    error: "Une erreur est survenue. Veuillez réessayer.",
+      "Describe your needs: equipment, software, transport, staffing, timelines...",
+    submit: "Submit request",
+    error: "Something went wrong. Please try again.",
   },
   footer: {
-    rights: "Tous droits réservés.",
+    rights: "All rights reserved.",
   },
   empty: {
-    seed: "Le contenu du site n'est pas configuré. Exécutez npm run db:seed après la configuration de PostgreSQL.",
+    seed: "Site content is not configured. Run npm run db:seed after setting up PostgreSQL.",
   },
 } as const;
 
+/** @deprecated Use `en` — kept briefly for any stale imports */
+export const fr = en;
+
 export const NAV_SECTIONS = [
   "home",
-  "services",
-  "expertise",
-  "partners",
-  "testimonials",
   "about",
+  "services",
+  "industries",
+  "partners",
   "contact",
+  "resources",
 ] as const;
 
 export type NavSectionId = (typeof NAV_SECTIONS)[number];
