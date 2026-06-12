@@ -5,7 +5,7 @@ import { HeroShell } from "@/components/public/hero-shell";
 import { PartnersSection } from "@/components/public/partners-section";
 import { QuoteForm } from "@/components/public/quote-form";
 import { ResourcesSection } from "@/components/public/resources-section";
-import { ServiceCard } from "@/components/public/service-card";
+import { ServiceCategoryGrid } from "@/components/public/service-category-grid";
 import { SiteFooter } from "@/components/public/site-footer";
 import { StatsGrid } from "@/components/public/stats-grid";
 import { TestimonialsSection } from "@/components/public/testimonials-section";
@@ -177,20 +177,10 @@ export function PublicHome({ content }: { content: PublicContent }) {
                       <p className="text-sm text-slate-600 sm:text-base">{cat.description}</p>
                     </div>
                   </div>
-                  <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {cat.services.map((svc) => (
-                      <ServiceCard
-                        key={svc.id}
-                        id={svc.id}
-                        title={svc.title}
-                        description={svc.description}
-                        icon={svc.icon}
-                        bulletPoints={svc.bulletPoints}
-                        ctaHref={svc.ctaHref}
-                        ctaLabel={svc.ctaLabel}
-                      />
-                    ))}
-                  </div>
+                  <ServiceCategoryGrid
+                    categorySlug={cat.slug}
+                    services={cat.services}
+                  />
                 </div>
               ))}
             </div>

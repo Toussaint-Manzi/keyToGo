@@ -59,6 +59,105 @@ body {
   animation: fade-in 0.8s ease-out forwards;
 }
 
+/* ─── Hero background (static) ─── */
+
+.hero-top-bloom {
+  background: radial-gradient(
+    ellipse 108% 58% at 50% -5%,
+    rgba(20, 184, 166, 0.5) 0%,
+    rgba(6, 182, 212, 0.18) 32%,
+    rgba(15, 23, 42, 0) 72%
+  );
+}
+
+.hero-horizon-glow {
+  background: radial-gradient(
+    ellipse 85% 45% at 50% 100%,
+    rgba(20, 184, 166, 0.35) 0%,
+    rgba(6, 182, 212, 0.1) 38%,
+    transparent 75%
+  );
+}
+
+.hero-perspective-grid {
+  bottom: 17%;
+  height: 52%;
+  width: 104%;
+  max-width: none;
+  opacity: 0.85;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 88%, transparent 100%);
+}
+
+.hero-horizon-line {
+  bottom: 17%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(45, 212, 191, 0.45) 22%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(45, 212, 191, 0.45) 78%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 14px rgba(20, 184, 166, 0.45),
+    0 0 36px rgba(20, 184, 166, 0.18);
+}
+
+.hero-vignette {
+  background: radial-gradient(
+    ellipse 95% 90% at 50% 40%,
+    transparent 0%,
+    rgba(3, 7, 18, 0.35) 55%,
+    rgba(3, 7, 18, 0.88) 100%
+  );
+}
+
+/* ─── Hero content ─── */
+
+.hero-title {
+  color: #ffffff;
+  text-shadow:
+    0 0 40px rgba(20, 184, 166, 0.2),
+    0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero-cta-primary {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #0891b2 100%);
+  box-shadow:
+    0 0 20px rgba(20, 184, 166, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+@keyframes hero-scroll-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.35;
+  }
+}
+
+.hero-scroll-dot {
+  animation: hero-scroll-dot 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-dot {
+    animation: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

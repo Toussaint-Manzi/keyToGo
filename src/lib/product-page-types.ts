@@ -2,9 +2,10 @@ export type ProductPageItem = {
   key: string;
   title: string;
   description: string;
-  href: string;
+  href?: string;
   hasDemo?: boolean;
   external?: boolean;
+  comingSoon?: boolean;
 };
 
 export function parseProductPageItems(products: unknown): ProductPageItem[] {
@@ -15,6 +16,6 @@ export function parseProductPageItems(products: unknown): ProductPageItem[] {
       p !== null &&
       "key" in p &&
       "title" in p &&
-      "href" in p,
+      typeof (p as ProductPageItem).title === "string",
   ) as ProductPageItem[];
 }

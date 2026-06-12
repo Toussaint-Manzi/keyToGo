@@ -63,6 +63,7 @@ export const en = {
     exploreMore: "Explore more",
     watchDemo: "Watch demo",
     visitPlatform: "Visit platform",
+    comingSoon: "Coming soon",
   },
   govconnect: {
     productsTitle: "Our platforms",

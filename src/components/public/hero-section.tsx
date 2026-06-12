@@ -41,48 +41,59 @@ export function HeroSection({
 
   return (
     <section
-      className="relative flex min-h-screen flex-col items-center justify-center px-3 pb-20 sm:px-4"
+      className="relative z-10 flex min-h-screen flex-col items-center justify-center px-3 pb-20 sm:px-4"
       style={{ paddingTop: NAVBAR_HEIGHT + 24 }}
     >
-      <div className="relative mx-auto w-full max-w-7xl animate-fade-in text-center">
+      <div className="relative mx-auto w-full max-w-7xl text-center">
         {countriesLine && (
-          <p className="mb-3 text-xs font-medium tracking-wide text-teal-200/90 sm:mb-4 sm:text-sm">
-            {countriesLine}
-          </p>
+          <div className="mb-5 flex justify-center sm:mb-6">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-teal-400/25 bg-slate-950/50 px-4 py-1.5 text-xs font-medium tracking-wide text-teal-100/90 backdrop-blur-md sm:text-sm">
+              <span className="h-2 w-2 rounded-full bg-teal-400" />
+              {countriesLine}
+            </span>
+          </div>
         )}
-        <h1 className="mx-auto max-w-6xl text-2xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:max-w-7xl">
+
+        <h1 className="hero-title mx-auto max-w-6xl text-2xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:max-w-7xl">
           {title}
         </h1>
+
         {subtitle && (
-          <p className="mx-auto mt-4 max-w-5xl text-sm text-slate-300 sm:mt-6 sm:text-base md:text-lg xl:max-w-6xl">
+          <p className="mx-auto mt-5 max-w-5xl text-sm leading-relaxed text-slate-300/90 sm:mt-6 sm:text-base md:text-lg xl:max-w-6xl">
             {subtitle}
           </p>
         )}
-        <p className="mx-auto mt-6 min-h-[1.75rem] text-base font-semibold text-teal-300 sm:mt-8 sm:min-h-[2rem] sm:text-lg md:text-xl">
+
+        <p className="mx-auto mt-6 min-h-7 text-base font-semibold text-teal-300 sm:mt-8 sm:min-h-8 sm:text-lg md:text-xl">
           {display}
           <span className="ml-1 inline-block h-4 w-0.5 animate-pulse bg-teal-400 align-middle sm:h-5" />
         </p>
-        <div className="mx-auto mt-8 flex max-w-md flex-col justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
+
+        <div className="mx-auto mt-9 flex max-w-md flex-col justify-center gap-3 sm:mt-11 sm:flex-row sm:gap-4">
           <a
             href="/#services"
-            className="rounded-lg bg-teal-500 px-5 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-teal-400 sm:px-6 sm:py-3"
+            className="hero-cta-primary rounded-full px-6 py-3 text-center text-sm font-semibold text-white sm:px-8"
           >
             {en.hero.explore}
           </a>
           <a
             href="/#contact"
-            className="rounded-lg border border-white/30 px-5 py-2.5 text-center text-sm font-semibold transition hover:bg-white/10 sm:px-6 sm:py-3"
+            className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-center text-sm font-semibold backdrop-blur-sm transition hover:border-teal-400/40 hover:bg-white/10 sm:px-8"
           >
             {en.hero.quote}
           </a>
         </div>
       </div>
+
       <a
         href="/#services"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce text-teal-300 sm:bottom-8"
+        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 text-teal-300/80 sm:bottom-8"
         aria-label={en.hero.scroll}
       >
-        <ArrowDown size={22} className="sm:h-7 sm:w-7" />
+        <span className="flex h-9 w-5 items-start justify-center rounded-full border-2 border-teal-400/45 p-1.5">
+          <span className="hero-scroll-dot block h-1.5 w-1.5 rounded-full bg-teal-400" />
+        </span>
+        <ArrowDown size={18} className="opacity-60" />
       </a>
     </section>
   );

@@ -118,10 +118,12 @@ async function main() {
       slug: "govconnect",
       title: "govCONNECT",
       description:
-        "Digital government and healthcare administration platforms — e-Gov and e-Health solutions for modern public-sector operations.",
+        "govCONNECT serves as a gateway between citizens and public institutions, enhancing service delivery through integrated digital government modules.",
       bulletPoints: [
-        "e-Gov — GovConnect citizen services platform",
-        "e-Health Admin for healthcare providers",
+        "eGov — citizen services and administrative workflows",
+        "eHealth — healthcare administration for providers and networks",
+        "eRevenu — revenue and tax administration (coming soon)",
+        "eJustice — justice and legal case management (coming soon)",
       ],
       icon: "Building2",
       ctaLabel: "Explore more",
@@ -272,16 +274,40 @@ async function main() {
 
   const trainingServices = [
     {
-      title: "Certifications & Partnerships",
+      title: "Industry Certifications",
       description:
-        "Industry-recognized certifications and training partnerships to develop your workforce capabilities.",
+        "Prepare your teams for industry-recognized credentials across cloud, cybersecurity, and enterprise technology.",
       bulletPoints: [
         "Cloud and cybersecurity certifications",
-        "Contact center and CX training",
-        "Custom corporate learning programs",
+        "Infrastructure and networking credentials",
+        "Contact center and CX specialist certifications",
       ],
       sortOrder: 0,
       icon: "Award",
+    },
+    {
+      title: "Training Partnerships",
+      description:
+        "Leverage our vendor and academic partnerships to deliver accredited programs aligned with your technology roadmap.",
+      bulletPoints: [
+        "Microsoft, AWS, and Cisco-aligned training paths",
+        "Telecom and contact center partner programs",
+        "Co-branded learning tracks for client teams",
+      ],
+      sortOrder: 1,
+      icon: "Layers",
+    },
+    {
+      title: "Corporate Learning Programs",
+      description:
+        "Custom workshops, bootcamps, and continuous learning plans designed around your teams, roles, and delivery goals.",
+      bulletPoints: [
+        "Custom corporate learning programs",
+        "Leadership and digital transformation workshops",
+        "Role-based upskilling and practicum-style delivery",
+      ],
+      sortOrder: 2,
+      icon: "GraduationCap",
     },
   ];
 
@@ -297,12 +323,12 @@ async function main() {
       title: "govCONNECT",
       subtitle: "Digital government & healthcare administration platforms",
       description:
-        "govCONNECT brings together e-Gov and e-Health solutions designed for modern public-sector and healthcare operations. Explore each platform below — external links open in a new tab, and a live e-Health demo is available on this page.",
+        "govCONNECT serves as a gateway between citizens and public institutions, enhancing service delivery by enabling citizens to seamlessly access and engage with government departments and agencies. Simultaneously, it equips public sector agents with digital tools to efficiently manage, prioritize, and process incoming requests promoting transparency, responsiveness, and equitable service delivery.",
       videoUrl: GOVCONNECT_VIDEO,
       products: [
         {
           key: "egov",
-          title: "e-Gov — GovConnect",
+          title: "eGov",
           description:
             "Digital government platform for streamlined citizen services, case management, and administrative workflows.",
           href: "https://egov-admin.keytogogroup.ca/",
@@ -311,12 +337,26 @@ async function main() {
         },
         {
           key: "ehealth",
-          title: "e-Health Admin",
+          title: "eHealth",
           description:
             "Healthcare administration platform for clinics, providers, and regional health networks.",
           href: "https://ehealth-admin.keytogogroup.ca/",
           hasDemo: true,
           external: true,
+        },
+        {
+          key: "erevenu",
+          title: "eRevenu",
+          description:
+            "Revenue and tax administration module for modern public finance operations.",
+          comingSoon: true,
+        },
+        {
+          key: "ejustice",
+          title: "eJustice",
+          description:
+            "Justice and legal case management module for courts and public legal institutions.",
+          comingSoon: true,
         },
       ],
       published: true,
@@ -427,7 +467,9 @@ async function main() {
   ];
 
   for (const item of [...visionItems, ...missionItems]) {
-    await prisma.visionMissionItem.create({ data: { ...item, published: true } });
+    await prisma.visionMissionItem.create({
+      data: { ...item, published: true },
+    });
   }
 
   const leadership = [
@@ -438,7 +480,9 @@ async function main() {
   ];
 
   for (const member of leadership) {
-    await prisma.leadershipMember.create({ data: { ...member, published: true } });
+    await prisma.leadershipMember.create({
+      data: { ...member, published: true },
+    });
   }
 
   const whyChoose = [
@@ -493,21 +537,24 @@ async function main() {
     {
       title: "Staff Augmentation vs Full-Time Hiring",
       category: "Blog",
-      excerpt: "When to scale with on-demand experts versus building permanent in-house teams.",
+      excerpt:
+        "When to scale with on-demand experts versus building permanent in-house teams.",
       href: "https://dev.to/t/staffing",
       sortOrder: 0,
     },
     {
       title: "Building High-Performance Remote Teams",
       category: "Blog",
-      excerpt: "Practices for distributed collaboration, accountability, and delivery velocity.",
+      excerpt:
+        "Practices for distributed collaboration, accountability, and delivery velocity.",
       href: "https://medium.com/tag/remote-work",
       sortOrder: 1,
     },
     {
       title: "Modern IT Staffing Strategies for Growing Companies",
       category: "Blog",
-      excerpt: "How mid-market firms balance contractors, partners, and core hires.",
+      excerpt:
+        "How mid-market firms balance contractors, partners, and core hires.",
       href: "https://hackernoon.com/c/technology",
       sortOrder: 2,
     },
@@ -515,21 +562,24 @@ async function main() {
     {
       title: "Cloud Migration Best Practices",
       category: "Whitepapers",
-      excerpt: "A structured approach to planning, migrating, and optimizing cloud workloads.",
+      excerpt:
+        "A structured approach to planning, migrating, and optimizing cloud workloads.",
       href: "https://medium.com/tag/cloud-computing",
       sortOrder: 3,
     },
     {
       title: "Hybrid Cloud Architecture Patterns",
       category: "Whitepapers",
-      excerpt: "Design patterns for secure, scalable hybrid and multi-cloud deployments.",
+      excerpt:
+        "Design patterns for secure, scalable hybrid and multi-cloud deployments.",
       href: "https://dev.to/t/cloud",
       sortOrder: 4,
     },
     {
       title: "Cybersecurity Framework for Cloud-Native Organizations",
       category: "Whitepapers",
-      excerpt: "Layered security controls for modern cloud and SaaS environments.",
+      excerpt:
+        "Layered security controls for modern cloud and SaaS environments.",
       href: "https://dev.to/t/security",
       sortOrder: 5,
     },
@@ -537,21 +587,24 @@ async function main() {
     {
       title: "Medical Transportation Compliance in Canada",
       category: "Industry Reports",
-      excerpt: "Key regulatory and operational considerations for healthcare transport providers.",
+      excerpt:
+        "Key regulatory and operational considerations for healthcare transport providers.",
       href: "https://medium.com/tag/healthcare",
       sortOrder: 6,
     },
     {
       title: "Digital Transformation in Healthcare",
       category: "Industry Reports",
-      excerpt: "How providers are modernizing operations, data, and patient experience.",
+      excerpt:
+        "How providers are modernizing operations, data, and patient experience.",
       href: "https://dev.to/t/healthcare",
       sortOrder: 7,
     },
     {
       title: "Public Sector Digital Services Outlook",
       category: "Industry Reports",
-      excerpt: "Trends in e-government platforms, citizen services, and operational efficiency.",
+      excerpt:
+        "Trends in e-government platforms, citizen services, and operational efficiency.",
       href: "https://medium.com/tag/government",
       sortOrder: 8,
     },
@@ -559,21 +612,24 @@ async function main() {
     {
       title: "How AI is Transforming Contact Centers",
       category: "Technology Trends",
-      excerpt: "Practical ways AI is reshaping customer experience and agent productivity.",
+      excerpt:
+        "Practical ways AI is reshaping customer experience and agent productivity.",
       href: "https://dev.to/t/ai",
       sortOrder: 9,
     },
     {
       title: "10 Cloud Computing Trends to Watch",
       category: "Technology Trends",
-      excerpt: "Emerging patterns in infrastructure, automation, and platform engineering.",
+      excerpt:
+        "Emerging patterns in infrastructure, automation, and platform engineering.",
       href: "https://medium.com/tag/artificial-intelligence",
       sortOrder: 10,
     },
     {
       title: "The Future of Customer Experience Automation",
       category: "Technology Trends",
-      excerpt: "CX automation, conversational AI, and omnichannel orchestration.",
+      excerpt:
+        "CX automation, conversational AI, and omnichannel orchestration.",
       href: "https://dev.to/t/automation",
       sortOrder: 11,
     },
@@ -581,21 +637,24 @@ async function main() {
     {
       title: "5G Rollout Strategies for Telecom Providers",
       category: "Telecom Insights",
-      excerpt: "Infrastructure, staffing, and CX considerations for next-generation networks.",
+      excerpt:
+        "Infrastructure, staffing, and CX considerations for next-generation networks.",
       href: "https://dev.to/t/5g",
       sortOrder: 12,
     },
     {
       title: "Modernizing Telecom Infrastructure",
       category: "Telecom Insights",
-      excerpt: "Network virtualization, edge computing, and operational resilience.",
+      excerpt:
+        "Network virtualization, edge computing, and operational resilience.",
       href: "https://medium.com/tag/telecommunications",
       sortOrder: 13,
     },
     {
       title: "Contact Center Evolution in Telecom",
       category: "Telecom Insights",
-      excerpt: "How carriers are upgrading support operations for digital-first subscribers.",
+      excerpt:
+        "How carriers are upgrading support operations for digital-first subscribers.",
       href: "https://dev.to/t/telecommunications",
       sortOrder: 14,
     },
@@ -629,7 +688,9 @@ async function main() {
     "Transport — Logistics & Courier",
     "Staffing — IT",
     "Staffing — Healthcare",
-    "Professional Trainings",
+    "Training — Industry Certifications",
+    "Training — Training Partnerships",
+    "Training — Corporate Learning Programs",
     "Other",
   ];
 
